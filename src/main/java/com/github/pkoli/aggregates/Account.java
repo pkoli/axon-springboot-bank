@@ -8,16 +8,22 @@ import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * Created by pkoli on 15/10/17.
  */
 @Aggregate
-public class AccountAggregate implements Serializable {
+@Entity
+@Table(name = "Account")
+public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
     @AggregateIdentifier
     private String id;
 
@@ -25,12 +31,12 @@ public class AccountAggregate implements Serializable {
 
     private String customerId;
 
-    public AccountAggregate(){
+    public Account() {
         //Required by JPA
     }
 
     @CommandHandler
-    public AccountAggregate(CreateAccountCommand command){
+    public Account(CreateAccountCommand command) {
 
         this.customerId = command.getCustomerId();
         this.balance = 0;

@@ -1,6 +1,6 @@
 package com.github.pkoli.configuration;
 
-import com.github.pkoli.aggregates.CustomerAggregate;
+import com.github.pkoli.aggregates.Customer;
 import org.axonframework.commandhandling.AsynchronousCommandBus;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.commandhandling.gateway.DefaultCommandGateway;
@@ -34,9 +34,9 @@ public class BankConfiguration {
     }
 
     @Bean
-    public EventSourcingRepository<CustomerAggregate> customerRepository() {
+    public EventSourcingRepository<Customer> customerRepository() {
         EventStore eventStore = new EmbeddedEventStore(eventStorageEngine());
-        EventSourcingRepository<CustomerAggregate> repository = new EventSourcingRepository<>(CustomerAggregate.class, eventStore);
+        EventSourcingRepository<Customer> repository = new EventSourcingRepository<>(Customer.class, eventStore);
         return repository;
     }
 
