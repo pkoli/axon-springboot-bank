@@ -1,23 +1,41 @@
 package com.github.pkoli.events;
 
-import com.github.pkoli.aggregates.Customer;
-
 /**
  * Created by pkoli on 15/10/17.
  */
 public class CustomerCreatedEvent {
 
-    private Customer customer;
+    private String customerId;
+    private String name;
+    private String address;
 
-    public CustomerCreatedEvent(Customer customer) {
-        this.customer = customer;
+    public CustomerCreatedEvent(String customerId, String name, String address) {
+        this.customerId = customerId;
+        this.name = name;
+        this.address = address;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

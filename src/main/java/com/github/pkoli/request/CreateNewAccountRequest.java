@@ -3,7 +3,7 @@ package com.github.pkoli.request;
 /**
  * Created by pkoli on 15/10/17.
  */
-public class CreateAccountRequest {
+public class CreateNewAccountRequest {
 
     private String name;
 

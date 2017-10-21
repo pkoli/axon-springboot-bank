@@ -6,12 +6,13 @@ package com.github.pkoli.events;
 public class AccountCreatedEvent {
 
     private String customerId;
-
     private String accountId;
+    private double balance;
 
-    public AccountCreatedEvent(String customerId, String accountId){
+    public AccountCreatedEvent(String customerId, String accountId, double balance){
         this.customerId = customerId;
         this.accountId = accountId;
+        this.balance = balance;
     }
 
     public String getCustomerId() {
@@ -28,5 +29,13 @@ public class AccountCreatedEvent {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

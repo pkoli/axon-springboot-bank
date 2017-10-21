@@ -4,6 +4,8 @@ import com.github.pkoli.aggregates.Customer;
 import org.axonframework.commandhandling.AsynchronousCommandBus;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.commandhandling.gateway.DefaultCommandGateway;
+import org.axonframework.eventhandling.saga.repository.SagaStore;
+import org.axonframework.eventhandling.saga.repository.inmemory.InMemorySagaStore;
 import org.axonframework.eventsourcing.EventSourcingRepository;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
@@ -34,10 +36,8 @@ public class BankConfiguration {
     }
 
     @Bean
-    public EventSourcingRepository<Customer> customerRepository() {
-        EventStore eventStore = new EmbeddedEventStore(eventStorageEngine());
-        EventSourcingRepository<Customer> repository = new EventSourcingRepository<>(Customer.class, eventStore);
-        return repository;
+    public SagaStore sagaStore(){
+        return new InMemorySagaStore();
     }
 
 }

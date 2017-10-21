@@ -1,7 +1,11 @@
 package com.github.pkoli.aggregates;
 
+import com.github.pkoli.commands.AddAccountCommand;
 import com.github.pkoli.commands.CreateAccountCommand;
+import com.github.pkoli.commands.DeleteAccountCommand;
+import com.github.pkoli.events.AccountAddedEvent;
 import com.github.pkoli.events.AccountCreatedEvent;
+import com.github.pkoli.events.DeletedAccountEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateLifecycle;
@@ -37,12 +41,10 @@ public class Account implements Serializable {
 
     @CommandHandler
     public Account(CreateAccountCommand command) {
+        String id = String.valueOf(Integer.parseInt(String.valueOf((int)(Math.random()*100))));
+        double balance = 0;
 
-        this.customerId = command.getCustomerId();
-        this.balance = 0;
-
-        AggregateLifecycle.apply(new AccountCreatedEvent(command.getCustomerId(),
-                String.valueOf(Math.random()*100)));
+        AggregateLifecycle.apply(new AccountCreatedEvent(command.getCustomerId(), id, balance));
     }
 
     public String getId() {
@@ -69,9 +71,21 @@ public class Account implements Serializable {
         this.customerId = customerId;
     }
 
+    @CommandHandler
+    public Account(DeleteAccountCommand command) {
+        AggregateLifecycle.apply(new DeletedAccountEvent(command.getAccountId()));
+    }
+
     @EventSourcingHandler
     public void on(AccountCreatedEvent event){
         this.id = event.getAccountId();
+        this.customerId = event.getCustomerId();
+        this.balance = event.getBalance();
+    }
+
+    @EventSourcingHandler
+    public void on(DeletedAccountEvent event){
+        AggregateLifecycle.markDeleted();
     }
 
 }

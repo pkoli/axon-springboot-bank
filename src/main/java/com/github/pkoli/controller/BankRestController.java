@@ -1,10 +1,13 @@
 package com.github.pkoli.controller;
 
+import com.github.pkoli.aggregates.Customer;
+import com.github.pkoli.commands.CreateAccountCommand;
 import com.github.pkoli.commands.CreateCustomerCommand;
-import com.github.pkoli.commands.ReadCustomerDetailsCommand;
-import com.github.pkoli.request.CreateAccountRequest;
+import com.github.pkoli.commands.DeleteCustomerCommand;
+import com.github.pkoli.repository.AccountQueryRepository;
+import com.github.pkoli.repository.CustomerQueryRepository;
+import com.github.pkoli.request.CreateNewAccountRequest;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.commandhandling.model.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,16 +24,33 @@ public class BankRestController {
     @Autowired
     private CommandGateway commandGateway;
 
-    @PostMapping(value = "/addAccount")
-    public CompletableFuture addAccount(@RequestBody CreateAccountRequest request){
+    @Autowired
+    private CustomerQueryRepository customerQueryRepository;
+
+    @Autowired
+    private AccountQueryRepository accountQueryRepository;
+
+    @PostMapping(value = "/createAccount")
+    public CompletableFuture createAccount(@RequestBody CreateNewAccountRequest request){
 
         return commandGateway.send(new CreateCustomerCommand(request.getName(), request.getAddress()));
     }
 
     @GetMapping(value = "/getCustomer/{customerId}")
-    public CompletableFuture getAccount(@PathVariable String customerId){
+    public ResponseEntity<Customer> getAccount(@PathVariable String customerId){
+        return new ResponseEntity<Customer>(customerQueryRepository.findOne(customerId), HttpStatus.OK);
+    }
 
-        return commandGateway.send(new ReadCustomerDetailsCommand(customerId));
+    @PostMapping(value = "/addAccount/{customerId}")
+    public ResponseEntity<Customer> addAccount(@PathVariable String customerId){
+        commandGateway.send(new CreateAccountCommand(customerId));
+        return new ResponseEntity<Customer>(customerQueryRepository.findOne(customerId), HttpStatus.OK);
+    }
 
+    @GetMapping(value = "/deleteCustomer/{customerId}")
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable String customerId){
+        commandGateway.send(new DeleteCustomerCommand(customerId
+        ));
+        return new ResponseEntity<Customer>(customerQueryRepository.findOne(customerId), HttpStatus.OK);
     }
 }
