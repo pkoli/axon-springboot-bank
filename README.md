@@ -1,5 +1,5 @@
 # axon-springboot-bank
-A project to understand Axon and Spring boot.
+A project created using Axon and Spring boot.
 
 It is a Bank application created using Axon(3.0.6) and Spring boot(1.5.7). It has REST endpoints exposed from where we can 
 send post or get requests.
