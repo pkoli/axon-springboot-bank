@@ -38,19 +38,20 @@ public class BankRestController {
 
     @GetMapping(value = "/getCustomer/{customerId}")
     public ResponseEntity<Customer> getAccount(@PathVariable String customerId){
-        return new ResponseEntity<Customer>(customerQueryRepository.findOne(customerId), HttpStatus.OK);
+
+        return new ResponseEntity<>(customerQueryRepository.findOne(customerId), HttpStatus.OK);
     }
 
     @PostMapping(value = "/addAccount/{customerId}")
-    public ResponseEntity<Customer> addAccount(@PathVariable String customerId){
-        commandGateway.send(new CreateAccountCommand(customerId));
-        return new ResponseEntity<Customer>(customerQueryRepository.findOne(customerId), HttpStatus.OK);
+    public CompletableFuture addAccount(@PathVariable String customerId){
+
+        return commandGateway.send(new CreateAccountCommand(customerId));
     }
 
-    @GetMapping(value = "/deleteCustomer/{customerId}")
-    public ResponseEntity<Customer> deleteCustomer(@PathVariable String customerId){
-        commandGateway.send(new DeleteCustomerCommand(customerId
-        ));
-        return new ResponseEntity<Customer>(customerQueryRepository.findOne(customerId), HttpStatus.OK);
+    @PostMapping(value = "/deleteCustomer/{customerId}")
+    public ResponseEntity deleteCustomer(@PathVariable String customerId){
+
+        commandGateway.send(new DeleteCustomerCommand(customerId));
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -30,7 +30,6 @@ public class Customer implements Serializable {
     private static final long serialVersionUID = 2L;
 
     @Id
-    @AggregateIdentifier
     private String customerId;
 
     private String name;

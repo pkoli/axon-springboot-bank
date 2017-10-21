@@ -1,7 +1,10 @@
 package com.github.pkoli.commands;
 
+import org.axonframework.commandhandling.TargetAggregateIdentifier;
+
 public class DeleteAccountCommand {
 
+    @TargetAggregateIdentifier
     private String accountId;
 
     public String getAccountId() {
