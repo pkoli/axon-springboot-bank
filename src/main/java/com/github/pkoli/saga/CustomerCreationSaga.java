@@ -1,9 +1,7 @@
 package com.github.pkoli.saga;
 
-import com.github.pkoli.commands.AddAccountCommand;
 import com.github.pkoli.commands.CreateAccountCommand;
 import com.github.pkoli.events.AccountAddedEvent;
-import com.github.pkoli.events.AccountCreatedEvent;
 import com.github.pkoli.events.CustomerCreatedEvent;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.saga.SagaEventHandler;

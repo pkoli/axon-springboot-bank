@@ -1,13 +1,10 @@
 package com.github.pkoli.aggregates;
 
-import com.github.pkoli.commands.AddAccountCommand;
 import com.github.pkoli.commands.CreateAccountCommand;
 import com.github.pkoli.commands.DeleteAccountCommand;
-import com.github.pkoli.events.AccountAddedEvent;
 import com.github.pkoli.events.AccountCreatedEvent;
 import com.github.pkoli.events.DeletedAccountEvent;
 import org.axonframework.commandhandling.CommandHandler;
-import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;

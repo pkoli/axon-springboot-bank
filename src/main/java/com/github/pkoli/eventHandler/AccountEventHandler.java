@@ -1,11 +1,9 @@
 package com.github.pkoli.eventHandler;
 
 import com.github.pkoli.aggregates.Account;
-import com.github.pkoli.commands.AddAccountCommand;
 import com.github.pkoli.events.AccountCreatedEvent;
 import com.github.pkoli.events.DeletedAccountEvent;
 import com.github.pkoli.repository.AccountQueryRepository;
-import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 

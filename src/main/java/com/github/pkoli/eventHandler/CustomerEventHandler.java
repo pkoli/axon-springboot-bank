@@ -1,15 +1,11 @@
 package com.github.pkoli.eventHandler;
 
 import com.github.pkoli.aggregates.Customer;
-import com.github.pkoli.commands.CreateAccountCommand;
-import com.github.pkoli.commands.DeleteAccountCommand;
-import com.github.pkoli.commands.DeleteCustomerCommand;
 import com.github.pkoli.events.AccountAddedEvent;
 import com.github.pkoli.events.CustomerCreatedEvent;
 import com.github.pkoli.events.DeletedCustomerEvent;
 import com.github.pkoli.repository.CustomerQueryRepository;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
