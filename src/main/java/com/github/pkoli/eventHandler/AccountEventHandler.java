@@ -6,7 +6,9 @@ import com.github.pkoli.events.DeletedAccountEvent;
 import com.github.pkoli.repository.AccountQueryRepository;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AccountEventHandler {
 
     @Autowired
