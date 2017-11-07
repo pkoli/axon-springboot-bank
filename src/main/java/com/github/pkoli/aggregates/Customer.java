@@ -51,7 +51,7 @@ public class Customer implements Serializable {
     @CommandHandler
     public Customer(CreateCustomerCommand command) {
         String customerId = String.valueOf(Integer.parseInt((String.valueOf((int)(Math.random()*100)))));
-        AggregateLifecycle.apply(new CustomerCreatedEvent(customerId, command.getName(), command.getAddress()));
+        AggregateLifecycle.apply(new CustomerCreatedEvent(customerId, command.getName(), command.getAddress()));/*, 0));*/
     }
 
     public String getCustomerId() {
