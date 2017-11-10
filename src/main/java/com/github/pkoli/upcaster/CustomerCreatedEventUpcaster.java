@@ -8,11 +8,12 @@ import org.axonframework.serialization.upcasting.event.SingleEventUpcaster;
 public class CustomerCreatedEventUpcaster extends SingleEventUpcaster {
 
     private static SimpleSerializedType targetType = new SimpleSerializedType(CustomerCreatedEvent.class.getTypeName(),
-            "1.0");
+            "1");
 
     @Override
     protected boolean canUpcast(IntermediateEventRepresentation intermediateRepresentation) {
-        return intermediateRepresentation.getType().equals(targetType);
+        return (intermediateRepresentation.getType().getName().equals(targetType.getName()) &&
+                intermediateRepresentation.getType().getRevision().equals(targetType.getRevision()));
     }
 
     @Override
@@ -22,7 +23,7 @@ public class CustomerCreatedEventUpcaster extends SingleEventUpcaster {
                 org.dom4j.Document.class,
                 document -> {
                     document.getRootElement().addElement("salary");
-                    document.getRootElement().element("salary").setData(0L);
+                    document.getRootElement().element("salary").setText("123456");
                     return document;
                 }
         );

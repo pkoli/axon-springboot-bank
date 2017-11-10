@@ -33,7 +33,7 @@ public class BankRestController {
     @PostMapping(value = "/createAccount")
     public CompletableFuture createAccount(@RequestBody CreateNewAccountRequest request){
 
-        return commandGateway.send(new CreateCustomerCommand(request.getName(), request.getAddress()));
+        return commandGateway.send(new CreateCustomerCommand(request.getName(), request.getAddress()/*, request.getSalary()*/));
     }
 
     @GetMapping(value = "/getCustomer/{customerId}")

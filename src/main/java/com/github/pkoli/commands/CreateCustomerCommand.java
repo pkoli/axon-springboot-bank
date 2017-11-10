@@ -14,6 +14,16 @@ public class CreateCustomerCommand {
 
     private String address;
 
+    /*private Double salary;
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }*/
+
     public String getCustomerId() {
         return customerId;
     }
@@ -22,9 +32,10 @@ public class CreateCustomerCommand {
         this.customerId = customerId;
     }
 
-    public CreateCustomerCommand(String name, String address){
+    public CreateCustomerCommand(String name, String address/*, Double salary*/){
         this.name = name;
         this.address = address;
+        /*this.salary = salary;*/
     }
 
     public String getName() {

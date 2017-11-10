@@ -43,15 +43,16 @@ public class CustomerCreatedEvent {
     }
 }
 /*
-@Revision(value = "2")
+Uncomment for Upcasting
+@Revision(value = "2.0")
 public class CustomerCreatedEvent {
 
     private String customerId;
     private String name;
     private String address;
-    private long salary;
+    private Double salary;
 
-    public CustomerCreatedEvent(String customerId, String name, String address, long salary) {
+    public CustomerCreatedEvent(String customerId, String name, String address, Double salary) {
         this.customerId = customerId;
         this.name = name;
         this.address = address;
@@ -82,11 +83,11 @@ public class CustomerCreatedEvent {
         this.address = address;
     }
 
-    public void setSalary(){
+    public void setSalary(Double salary){
         this.salary = salary;
     }
 
-    public long getSalary(){
+    public Double getSalary(){
         return salary;
     }
 }

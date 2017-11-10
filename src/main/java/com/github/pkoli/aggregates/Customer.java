@@ -11,6 +11,7 @@ import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -36,6 +37,19 @@ public class Customer implements Serializable {
 
     private ArrayList<String> accountIds;
 
+    /*
+    Uncommnet for Event Upcasting
+    @Column(nullable = true)
+    private Double salary;
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }*/
+
     public ArrayList<String> getAccountIds() {
         return accountIds;
     }
@@ -51,7 +65,8 @@ public class Customer implements Serializable {
     @CommandHandler
     public Customer(CreateCustomerCommand command) {
         String customerId = String.valueOf(Integer.parseInt((String.valueOf((int)(Math.random()*100)))));
-        AggregateLifecycle.apply(new CustomerCreatedEvent(customerId, command.getName(), command.getAddress()));/*, 0));*/
+        AggregateLifecycle.apply(new CustomerCreatedEvent(customerId, command.getName(), command.getAddress()/*,
+                command.getSalary()*/));
     }
 
     public String getCustomerId() {
@@ -94,6 +109,7 @@ public class Customer implements Serializable {
         this.address = event.getAddress();
         this.customerId= event.getCustomerId();
         this.accountIds = new ArrayList<>();
+        /*this.salary = event.getSalary();*/
     }
 
     @EventSourcingHandler

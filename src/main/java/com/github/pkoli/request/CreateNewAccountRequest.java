@@ -9,6 +9,18 @@ public class CreateNewAccountRequest {
 
     private String address;
 
+    /*
+    //Uncomment for event upcasting
+    private Double salary;
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }*/
+
     public String getName() {
         return name;
     }

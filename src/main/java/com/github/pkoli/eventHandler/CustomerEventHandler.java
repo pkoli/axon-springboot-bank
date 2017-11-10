@@ -31,6 +31,7 @@ public class CustomerEventHandler {
         customer.setCustomerId(event.getCustomerId());
         customer.setAddress(event.getAddress());
         customer.setAccountIds(new ArrayList<>());
+        /*customer.setSalary(event.getSalary());*/
 
         customerQueryRepository.save(customer);
 
