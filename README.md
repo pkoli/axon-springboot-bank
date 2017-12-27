@@ -22,12 +22,6 @@ On the Command Side we have:
 
 For the query side I've used InMemory storage again and Hibernate(ORM) along with Spring data for the repositories.
 
-[TODO]: 
-
-  - Expose an endpoint to delete an account of a customer
-  - Writing test cases
-  - Add Exception Handling
-
 To gain an understanding of Axon and what it is you can start from https://docs.axonframework.org/v/3.0/
 
 I'll be writing a blog pretty soon explaining step by step on how this project was created also about CQRS, DDD, EventSourcing and what role Axon plays in this.
