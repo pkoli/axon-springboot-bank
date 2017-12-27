@@ -15,14 +15,19 @@ import org.axonframework.eventsourcing.EventSourcingRepository;
 import org.axonframework.eventsourcing.Snapshotter;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.eventsourcing.eventstore.jpa.JpaEventStorageEngine;
+import org.axonframework.messaging.interceptors.BeanValidationInterceptor;
 import org.axonframework.messaging.interceptors.TransactionManagingInterceptor;
 import org.axonframework.serialization.Serializer;
 import org.axonframework.serialization.upcasting.event.SingleEventUpcaster;
 import org.axonframework.spring.eventsourcing.SpringAggregateSnapshotterFactoryBean;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory;
 
 import javax.sql.DataSource;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 import java.sql.SQLException;
 
 /**
@@ -45,16 +50,29 @@ public class BankConfiguration {
     }
 
     @Bean
-    public AsynchronousCommandBus commandBus(TransactionManager transactionManager) {
+    public ValidatorFactory validatorFactory(final AutowireCapableBeanFactory autowireCapableBeanFactory){
+
+        return Validation.byDefaultProvider()
+                .configure().constraintValidatorFactory(new SpringConstraintValidatorFactory(autowireCapableBeanFactory))
+                .buildValidatorFactory();
+
+    }
+
+    @Bean
+    public AsynchronousCommandBus commandBus(TransactionManager transactionManager,
+                                             final AutowireCapableBeanFactory autowireCapableBeanFactory) {
 
         AsynchronousCommandBus commandBus = new AsynchronousCommandBus();
         commandBus.registerHandlerInterceptor(new TransactionManagingInterceptor<>(transactionManager));
+        commandBus.registerDispatchInterceptor(new BeanValidationInterceptor<>(validatorFactory(
+                autowireCapableBeanFactory)));
         return commandBus;
     }
 
     @Bean
-    public CommandGateway commandGateway(TransactionManager transactionManager) {
-        return new DefaultCommandGateway(commandBus(transactionManager));
+    public CommandGateway commandGateway(TransactionManager transactionManager,
+                                         final AutowireCapableBeanFactory autowireCapableBeanFactory) {
+        return new DefaultCommandGateway(commandBus(transactionManager, autowireCapableBeanFactory));
     }
 
     @Bean

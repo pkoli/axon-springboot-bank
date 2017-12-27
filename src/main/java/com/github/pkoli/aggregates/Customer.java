@@ -38,7 +38,7 @@ public class Customer implements Serializable {
     private ArrayList<String> accountIds;
 
     /*
-    Uncommnet for Event Upcasting
+    Uncomment for Event Upcasting
     @Column(nullable = true)
     private Double salary;
 
