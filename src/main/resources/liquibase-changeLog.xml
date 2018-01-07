@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="pavan (generated)" id="1515315089473-1">
+        <preConditions onFail="HALT">
+            <not><tableExists schemaName="PUBLIC" tableName="ACCOUNT" /></not>
+        </preConditions>
+        <createTable tableName="ACCOUNT">
+            <column name="ID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BALANCE" type="DOUBLE(17)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CUSTOMER_ID" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="pavan (generated)" id="1515315089473-3">
+        <preConditions onFail="HALT">
+            <not><tableExists schemaName="PUBLIC" tableName="CUSTOMER" /></not>
+        </preConditions>
+        <createTable tableName="CUSTOMER">
+            <column name="CUSTOMER_ID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ACCOUNT_IDS" type="BLOB"/>
+            <column name="ADDRESS" type="VARCHAR(255)"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="pavan (generated)" id="1515315089473-8">
+        <preConditions onFail="HALT">
+            <not>
+                <primaryKeyExists tableName="CUSTOMER" />
+            </not>
+        </preConditions>
+        <addPrimaryKey columnNames="CUSTOMER_ID" constraintName="CONSTRAINT_5" tableName="CUSTOMER"/>
+    </changeSet>
+
+    <changeSet author="pavan (generated)" id="1515315089473-11">
+        <preConditions onFail="HALT">
+            <not>
+                <primaryKeyExists tableName="ACCOUNT" />
+            </not>
+        </preConditions>
+        <addPrimaryKey columnNames="ID" constraintName="CONSTRAINT_E" tableName="ACCOUNT"/>
+    </changeSet>
+
+    <changeSet author="pkoli" id="07012018">
+        <addColumn tableName="CUSTOMER">
+            <column name="DUMMY" type="varchar(255)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="pkoli" id="070120181440">
+        <addColumn tableName="CUSTOMER">
+            <column name="DUMMY2" type="varchar(255)" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="pkoli" id="070120181508">
+        <addColumn tableName="CUSTOMER">
+            <column name="DUMMY3" type="varchar(255)" />
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
